@@ -32,7 +32,7 @@ func (I inc) Start() {
 		I.nums[i] = n
 		I.pauses[i] = p
 		go I.increment(n, p)
-		n <- 1
+		n <- 0
 	}
 }
 

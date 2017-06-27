@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Counters</title>
+</head>
+
+<body>
+    {{range $index, $element := .}}
+    <p id="timer{{$index}}"></p>
+    <button type="button" id="{{$index}}" onclick="callSwitch(this.id)">Switch</button> {{end}}
+
+
+    <script>
+        function fetchData() {
+            fetch("/data/peek").then(function (response) {
+                response.json().then(function (data) {
+                    n = document.getElementsByTagName('p');
+                    for (i = 0; i < n.length; i++) {
+                        n[i].innerHTML = data.nums[i]
+                    }
+                })
+            })
+        }
+
+        function callSwitch(id) {
+            fetch('/data/switch?id=' + (Number(id)+1)).then(function (response) {
+                console.log(response.status)
+            })
+        }
+        setInterval(fetchData, 500);
+    </script>
+
+
+
+</body>
+
+</html>
